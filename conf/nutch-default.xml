@@ -70,7 +70,7 @@
 
 <property>
   <name>http.agent.name</name>
-  <value></value>
+  <value>nutch-trial</value>
   <description>HTTP 'User-Agent' request header. MUST NOT be empty - 
   please set this to a single word uniquely related to your organization.
 
@@ -1025,7 +1025,7 @@
 
 <property>
   <name>plugin.folders</name>
-  <value>plugins</value>
+  <value>/home/lchungyo/git/nutch/build/plugins</value>
   <description>Directories where nutch plugins are located.  Each
   element may be a relative or absolute path.  If absolute, it is used
   as is.  If relative, it is searched for on the classpath.</description>
@@ -1042,7 +1042,7 @@
 
 <property>
   <name>plugin.includes</name>
-  <value>protocol-http|urlfilter-regex|parse-(html|tika)|index-(basic|anchor)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
+  <value>protocol-http|urlfilter-regex|parse-(html|tika|file)|index-(basic|anchor)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
   <description>Regular expression naming plugin directory names to
   include.  Any plugin not matching this expression is excluded.
   In any case you need at least include the nutch-extensionpoints plugin. By

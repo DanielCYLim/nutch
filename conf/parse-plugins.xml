@@ -57,10 +57,12 @@
 
 	<mimeType name="text/html">
 		<plugin id="parse-html" />
+		<plugin id="parse-file" />
 	</mimeType>
 
-        <mimeType name="application/xhtml+xml">
+    <mimeType name="application/xhtml+xml">
 		<plugin id="parse-html" />
+		<plugin id="parse-file" />
 	</mimeType>
 
 	<mimeType name="text/xml">
@@ -84,6 +86,8 @@
 		<alias name="parse-tika" 
 			extension-id="org.apache.nutch.parse.tika.TikaParser" />
 		<alias name="parse-ext" extension-id="ExtParser" />
+		<alias name="parse-file"
+			extension-id="org.dso.nutch.parse.html.FileParser" />
 		<alias name="parse-html"
 			extension-id="org.apache.nutch.parse.html.HtmlParser" />
 		<alias name="parse-js" extension-id="JSParser" />
