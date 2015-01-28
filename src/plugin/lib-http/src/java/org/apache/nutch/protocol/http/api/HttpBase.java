@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+
 // Logging imports
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ import org.apache.nutch.util.DeflateUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+
 
 // crawler-commons imports
 import crawlercommons.robots.BaseRobotRules;
@@ -173,14 +175,21 @@ public abstract class HttpBase implements Protocol {
     return this.conf;
   }
   
+  private static final String HTTP_REDIRECT_MAX_PROPERTY_NAME = "http.redirect.max" ;
+  
   public ProtocolOutput getProtocolOutput(Text url, CrawlDatum datum) {
-    
+	final String httpRedirectMax = conf.get(HTTP_REDIRECT_MAX_PROPERTY_NAME);
+	boolean toRedirect = false ;
+	if ( Integer.parseInt(httpRedirectMax) > 0 ) {
+		toRedirect = true ;
+	}
+					  
     String urlString = url.toString();
     try {
       URL u = new URL(urlString);
       
       long startTime = System.currentTimeMillis();
-      Response response = getResponse(u, datum, false); // make a request
+      Response response = getResponse(u, datum, toRedirect); // make a request
       
       if(this.responseTime) {
         int elapsedTime = (int) (System.currentTimeMillis() - startTime);
