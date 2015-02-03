@@ -1,8 +1,25 @@
 #!/bin/sh
-session_name=$1
 #
-echo "Starting screen session for nutch crawling with session name nutch-${session_name}"
+home_dir=/home/lchungyo/Development/workspaces/nutch
+target_name=name_of_folder
 #
-#screen -L -dmS nutch-${session_name} bin/nutch crawl urls -depth 50000 -topN 50000 -threads 128
+session_name=nutch-${target_name}
 #
-screen -L -dmS nutch-${session_name} /home/lchungyo/Development/workspace-nutch/endless-crawl-bot.sh
+echo "Checking if a screen session for ${session_name} is still running:"
+screen -list | grep ${session_name}
+
+if [ $? -eq 0 ]
+then 
+	echo "An existing screen session for ${session_name} is found. Do not start new crawl session."
+	exit
+else 
+	echo "No screen session for ${session_name} is running. Continue to start crawl session."
+fi	
+#
+echo "Starting screen session for nutch crawling with session name ${session_name}"
+#
+cd ${home_dir}/${target_name}
+screen -L -dmS ${session_name} ./crawl-bot.sh
+#
+echo "Screen session started:"
+screen -list | grep ${session_name}

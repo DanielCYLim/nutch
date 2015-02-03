@@ -10,7 +10,7 @@
 #
 # Author: Susam Pal
 
-rounds=10
+rounds=5
 threads=4
 adddays=0
 
@@ -51,6 +51,12 @@ then
 else
   topN=""
 fi
+
+#
+
+echo "Number of rounds to crawl: $rounds"
+
+#
 
 steps=8
 echo "----- Inject (Step 1 of $steps) -----"
@@ -107,7 +113,7 @@ do
    
   echo "--- Beginning Update of segment $segment --- round `expr $i + 1` of $rounds ---"
   
-  $NUTCH_HOME/bin/nutch updatedb crawl/crawldb $segment
+  $NUTCH_HOME/bin/nutch updatedb crawl/crawldb $segment -filter -normalize
   
   echo "--- End of Update of segment $segment --- round `expr $i + 1` of $rounds ---"  
   
@@ -137,8 +143,7 @@ mv $MVARGS crawl/MERGEDsegments crawl/segments
 
 #
 #echo "----- Index (Step 5 of $steps) -----"
-#$NUTCH_HOME/bin/nutch index crawl/NEWindexes crawl/crawldb crawl/linkdb \
-    crawl/segments/*
+#$NUTCH_HOME/bin/nutch index crawl/NEWindexes crawl/crawldb crawl/linkdb crawl/segments/*
 
 #echo "----- Dedup (Step 6 of $steps) -----"
 #$NUTCH_HOME/bin/nutch dedup crawl/NEWindexes
