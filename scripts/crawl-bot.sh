@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Taken from http://wiki.apache.org/nutch/Crawl
+# Adapted from http://wiki.apache.org/nutch/Crawl
 #
 # runbot script to run the Nutch bot for crawling and re-crawling.
 # Usage: bin/runbot [safe]
@@ -8,7 +8,7 @@
 #        directories generated during crawl. This might be helpful for
 #        analysis and recovery in case a crawl fails.
 #
-# Author: Susam Pal
+# Oiriginal Author: Susam Pal
 
 rounds=5
 threads=4
