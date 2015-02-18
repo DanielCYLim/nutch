@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>plugin.folders</name>
+		<value>/home/lchungyo/git/nutch/build/plugins</value>
+	</property>
+
+	<property>
+		<name>plugin.includes</name>
+		<value>protocol-http|urlfilter-regex|parse-(html|tika|file)|index-(basic|anchor)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)
+		</value>
+		<description>Regular expression naming plugin directory names to
+			include. Any plugin not matching this expression is excluded.
+			In any case you need at least include the nutch-extensionpoints plugin.
+			By
+			default Nutch includes crawling just HTML and plain text via HTTP,
+			and basic indexing and search plugins. In order to use HTTPS please
+			enable
+			protocol-httpclient, but be aware of possible intermittent problems with the
+			underlying commons-httpclient library.
+		</description>
+	</property>
+
+	<!-- parse-file FileParser properties -->
+
+	<property>
+		<name>fileparser.directory</name>
+		<value>file</value>
+		<description>The name of the directory where the HTML files will be
+			written to.
+			Used by the parse-file plugin.
+		</description>
+	</property>
+
+<!-- HTTP properties -->
+	
+<property>
+  <name>http.redirect.max</name>
+  <value>10</value>
+  <description>The maximum number of redirects the fetcher will follow when
+  trying to fetch a page. If set to negative or 0, fetcher won't immediately
+  follow redirected URLs, instead it will record them for later fetching.
+  </description>
+</property>
+	
+	<!-- web db properties -->
+<property>
+  <name>db.fetch.interval.default</name>
+  <value>1440</value>
+  <description>The default number of seconds between re-fetches of a page (1 day).
+  </description>
+</property>
+
+<property>
+      <name>db.fetch.schedule.class</name>
+      <value>org.apache.nutch.crawl.AdaptiveFetchSchedule</value>
+      <description>The implementation of fetch schedule. DefaultFetchSchedule simply
+      adds the original fetchInterval to the last fetch time, regardless of
+      page changes.</description>
+    </property>
+    
+<property>
+  <name>db.ignore.external.links</name>
+  <value>false</value>
+  <description>If true, outlinks leading from a page to external hosts
+  will be ignored. This is an effective way to limit the crawl to include
+  only initially injected hosts, without creating complex URLFilters.
+  </description>
+</property>
+    
+<property>
+  <name>db.signature.class</name>
+  <value>org.apache.nutch.crawl.TextProfileSignature</value>
+  <!--  
+  <value>org.apache.nutch.crawl.MD5Signature</value>
+  -->
+  <description>The default implementation of a page signature. Signatures
+  created with this implementation will be used for duplicate detection
+  and removal.</description>
+</property>
+
+<!--
+By default the signature of a page is built not only with its content,
+but also with the http headers returned with the page.
+So even if the content of a page has not changed, if an http header is not the same (like an etag or a date), the signature changes.
+To solve that problem, there is the TextProfileSignature class. 
+It is designed to look only at the text content of a page to build the signature. 
+To use it, you need to set the db.signature.class property to org.apache.nutch.crawl.TextProfileSignature.
+  -->
+  
+<!-- fetcher properties -->
+
+<property>
+  <name>fetcher.server.delay</name>
+  <value>1.0</value>
+  <description>The number of seconds the fetcher will delay between 
+   successive requests to the same server. Note that this might get
+   overriden by a Crawl-Delay from a robots.txt and is used ONLY if 
+   fetcher.threads.per.queue is set to 1.
+   </description>
+</property>  
+    
+<property>
+  <name>fetcher.parse</name>
+  <value>true</value>
+  <description>If true, fetcher will parse content. Default is false, which means
+  that a separate parsing step is required after fetching is finished.</description>
+</property>
+
+<property>
+  <name>fetcher.store.content</name>
+  <value>false</value>
+  <description>If true, fetcher will store content.</description>
+</property>
+    
+</configuration>
